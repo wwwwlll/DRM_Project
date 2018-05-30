@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+	<include resource="org/springframework/boot/logging/logback/base.xml" />
+
+
+
+	 <property name="LOG_HOME" value="d:/logs/study" />
+
+
+	<!-- property name="LOG_PATTERN" value="%logger{36} %d{yyyy-MM-dd HH:mm:ss} 
+		[%thread] %-5level %logger{36} - %msg%n"/> -->
+	<property name="LOG_PATTERN"
+		value="%d{yyyy-MM-dd HH:mm:ss SSSZ} [%thread] %-5level %M line %L- %m%n" />
+	<appender name="FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/study.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<fileNamePattern>${LOG_HOME}/study_%d{yyyy-MM-dd}_%i.log
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>25000kb</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<!-- keep 30 days' worth of history -->
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${LOG_PATTERN}</pattern>
+		</encoder>
+	</appender>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>
+				${LOG_PATTERN}
+			</pattern>
+		</encoder>
+	</appender>
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />
+	</root>
+	<logger name="dataSource" level="INFO"></logger>
+
+	<!-- <logger name="EformData" level="debug"></logger> <logger name="com.jcone.eform.server" 
+		level="INFO" > <appender-ref ref="STDOUT" /> <appender-ref ref="FILE" /> 
+		</logger> <logger name="org.springframework.beans"> <level value="info" /> 
+		</logger> <logger name="org.springframework.context"> <level value="info" 
+		/> </logger> -->
+	<!-- <logger name="EformData" level="debug"/> -->
+
+	<!-- turn OFF all logging (children can override) -->
+	<!-- <root level="INFO"> <appender-ref ref="STDOUT" /> <appender-ref ref="FILE" 
+		/> </root> -->
+	<!-- <logger name="org.apache.commons.dbcp2" level="DEBUG"/> <logger name="java.sql" 
+		level="ERROR"/> <logger name="jdbc.sqltiming" level="DEBUG"/> -->
+</configuration>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dataSource">
+	<insert id="INSERT_FILE" parameterType="com.wj.drm.DTO.FileListDTO">
+		INSERT INTO 
+			UPLOADFILES(
+						IDX,FILENAME,UPLOADDATE,PATH
+						)
+		VALUES(
+			#{IDX},#{fileName},(TO_DATE(#{uploadDate},'YYYY-MM-DD')),#{path}
+		)
+	</insert>
+	<select id="selectFileList_RecentUpload_10" resultType="com.wj.drm.DTO.FileListDTO">
+	<![CDATA[
+		SELECT 
+			*
+		FROM 
+			(
+			SELECT * FROM UPLOADFILES
+			ORDER BY UPLOADDATE DESC
+			)
+		WHERE
+			 ROWNUM <= 10
+	]]>
+	</select>
+</mapper> 
+
+
