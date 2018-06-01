@@ -20,9 +20,9 @@ import com.wj.drm.util.messages.CodeProperties;
  * Handles requests for the application home page.
  */
 @Controller
-public class HomeController {
+public class DrmServerController {
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(DrmServerController.class);
 //	@Autowired
 //	CodeProperties msg;
 	@Autowired
@@ -67,5 +67,5 @@ public class HomeController {
 		return "registUser";
 	}
 		
-	
+
 }

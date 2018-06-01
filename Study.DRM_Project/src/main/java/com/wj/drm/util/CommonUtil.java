@@ -7,8 +7,22 @@ import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Properties;
 import java.util.UUID;
 
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.MimeUtility;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
@@ -107,5 +121,59 @@ public class CommonUtil {
 	            System.out.println("?뙆?씪?씠 議댁옱?븯吏? ?븡?뒿?땲?떎.");
 	        }
 		return false;
+	}
+		
+	public boolean sendMail() throws AddressException,UnsupportedEncodingException,MessagingException{
+		String host = "smtp.naver.com";
+	    Properties prop = System.getProperties();
+	    Session session = Session.getDefaultInstance(prop,null);
+	    MimeMessage message = new MimeMessage(session);
+	    String toName = "김원재";
+	    String title = "김원재 메일 테스트입니다.";
+	    StringBuilder content = new StringBuilder() ;
+	    content.append("동해물과 백두산이 마르고닳도록 하느님이 보우하사 우리 나라 만세!");
+	    String toAddress ="funnywonjae@naver.com";
+	    String fromAddress = "funnywonjae@naver.com";
+	    String ccAddress = "funnywonjae@naver.com,funnywonjae@naver.com,funnywonjae@naver.com,funnywonjae@naver.com";
+	    String filePath = "D:\\testText.txt";
+	    InternetAddress[] address = {new InternetAddress(fromAddress)};
+	    String[] ccAddress_split = ccAddress.split(",");
+	    InternetAddress[] addresscc = new InternetAddress[ccAddress_split.length];
+	    for(int i = 0 ; i < ccAddress_split.length ; i++) {
+	    	addresscc[i] = new InternetAddress(ccAddress_split[i]);
+	    }
+	    message.setFrom(new InternetAddress(new String(toName.getBytes("KSC5601"),"8859_1")+"<"+toAddress+">"));
+	    message.setRecipients(Message.RecipientType.TO, address);
+	    message.setRecipients(Message.RecipientType.CC, addresscc);
+	    message.setSubject(title,"KSC5601");
+	    MimeBodyPart mbp1 = new MimeBodyPart();
+	    mbp1.setText(content.toString().replaceAll(" "," "), "KSC5601");
+	    String file = filePath;
+	    file = fileSize(file);
+	    MimeBodyPart mdp2 = new MimeBodyPart();
+	    FileDataSource fds = new FileDataSource(file);
+	    mdp2.setDataHandler(new DataHandler(fds));
+	    mdp2.setFileName(MimeUtility.encodeText(fds.getName(),"KSC5601","B"));
+	    Multipart mp = new MimeMultipart();
+	    mp.addBodyPart(mbp1);
+	    if(!file.equals("")) {
+	        mp.addBodyPart(mdp2);
+	    }
+	    message.setContent(mp);
+	    Transport transport = session.getTransport("smtp");
+	            //smtp 주소로 설정한 메일의 메일주소(아이디)/패스워드
+	    transport.connect(host,"funnywonjae","dnjswo3675!");
+	    transport.sendMessage(message,message.getAllRecipients());
+	    transport.close();
+	    System.out.println("메일전송 성공!");
+		return true;
+	}
+	 
+	private static String fileSize(String fileName) {
+	    File file = new File(fileName);
+	    if(file.length()>(1024*1024*2.5)) {
+	        fileName = "";
+	    }
+	 	return fileName;
 	}
 }
