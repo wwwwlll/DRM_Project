@@ -10,6 +10,47 @@
 			#{IDX},#{fileName},(TO_DATE(#{uploadDate},'YYYY-MM-DD')),#{path}
 		)
 	</insert>
+	<insert id="INSERT_USERS" parameterType="com.wj.drm.DTO.UsersDTO">
+		INSERT INTO
+			USERS(
+					USERID,USERPWD,ACCESSKEY
+				)
+			VALUES(
+				#{userId},#{userPwd},#{accessKey}
+			)
+	</insert>
+	<select id="dynamicTest" parameterType = "String">
+		@sql@
+	
+	</select>
+	<select id="SELECT_USERS_ID_WITH_PWD" parameterType="com.wj.drm.DTO.UsersDTO" resultType="com.wj.drm.DTO.UsersDTO">
+		SELECT
+				*
+		FROM
+				USERS
+		WHERE
+				USERID = #{userId} AND USERPWD = #{userPwd}
+	
+	</select>
+	<select id="UPDATE_ACCESSKEY" parameterType="com.wj.drm.DTO.UsersDTO">
+		UPDATE
+				USERS
+		SET
+				ACCESSKEY = 'ACCESS'
+		WHERE
+				USERID = #{userId} AND USERPWD = #{userPwd}
+		
+	
+	</select>
+	<select id="SELECT_USERS_ONLY_ID" parameterType="String" resultType="com.wj.drm.DTO.UsersDTO">
+		SELECT
+				*
+		FROM	
+				USERS
+		WHERE
+				USERID = #{userId}
+	
+	</select>
 	<select id="selectFileList_RecentUpload_10" resultType="com.wj.drm.DTO.FileListDTO">
 	<![CDATA[
 		SELECT 
@@ -17,10 +58,10 @@
 		FROM 
 			(
 			SELECT * FROM UPLOADFILES
-			ORDER BY UPLOADDATE DESC
-			)
-		WHERE
-			 ROWNUM <= 10
+			ORDER BY UPLOADDATE DESC 
+			)as a
+		LIMIT
+			 1,10;
 	]]>
 	</select>
 </mapper> 

@@ -159,6 +159,9 @@
  font-size : 10px;
  padding : 5px;
  }
+ .chatDataDiv{
+ height:100px;
+ }
 }
 
 @media (min-width:640px) {
@@ -186,6 +189,9 @@
  font-size : 10px;
  padding : 10px;
  }
+  .chatDataDiv{
+ height:300px;
+ }
 }
 
 @media (min-width:1024px) {
@@ -194,8 +200,6 @@
  	margin-left:5%;
  	border : 1px solid #d6d6d6;
  	overflow: auto;
- 	
- 	
  }
  .mainContentUl{
  	width : 33.3333%;
@@ -225,5 +229,7 @@
 .lastMainContetLi{
  	
  	border-bottom: 1px solid #d6d6d6;
-}
+} .chatDataDiv{
+ height:500px;
+ }
 

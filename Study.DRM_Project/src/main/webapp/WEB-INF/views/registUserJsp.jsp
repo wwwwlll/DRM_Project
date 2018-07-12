@@ -5,12 +5,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
+<script src="<c:url value="/resources/js/customJS.js" />"></script>
 <script src="<c:url value="/resources/js/jquery.min.js" />"></script>
 <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
 <script src="<c:url value="/resources/js/jquery.form.min.js" />"></script>
-<script type="text/javascript" src="<c:url value="/resources/js/jquery.jqplot.min.js" />"></script>
-<link class="include" rel="stylesheet" type="text/css" href="<c:url value="jquery.jqplot.min.css" />" />
 <link rel="stylesheet"	href="<c:url value="/resources/css/bootstrap.min.css" />">
 <link rel="stylesheet"	href="<c:url value="/resources/css/htmlStudyPage.css" />">
 <meta name="viewport" content="initial-scale=1, width=device-width"/> 
@@ -36,14 +34,12 @@
 	</div> -->
 <div class="contentDiv" style="width: 100%;height:80%;overflow:unset;">
 	<div class ="mainContentDiv" style="text-align:center;">
-			<h1>회원가입</h1>
+		<h1>회원가입</h1>
+		<hr/>
+		id : <input type="text" id = "regist_ID"> <br />
+		pwd : <input type="password" id = "regist_PWD"> <br />
+		<input type="button" onclick = "regist_User()">
 	</div>
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
 </div>
 </div>
 

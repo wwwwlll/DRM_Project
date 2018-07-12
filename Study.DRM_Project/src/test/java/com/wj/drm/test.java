@@ -1,31 +1,35 @@
 package com.wj.drm;
 
-import java.io.UnsupportedEncodingException;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
-
-import com.wj.drm.util.CommonUtil;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class test {
 
 	public static void main(String[] args) {
-		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int input = 0;
+
 		try {
-			if(new CommonUtil().sendMail()) {
-				System.out.println("«Ï«Ï");
+			input = Integer.parseInt(br.readLine());
+
+		} catch (NumberFormatException | IOException e) {
+			e.printStackTrace();
+		}
+
+		ArrayList<Integer> arr = new ArrayList<Integer>();
+		for (int i = 0; i < input; i++) {
+			try {
+				arr.add(Integer.parseInt(br.readLine()));
+			} catch (NumberFormatException | IOException e) {
+				e.printStackTrace();
 			}
-		} catch (AddressException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-				
-		
+		Collections.sort(arr);
+		for (int i : arr) {
+			System.out.println(i);
 		}
+	}
 }

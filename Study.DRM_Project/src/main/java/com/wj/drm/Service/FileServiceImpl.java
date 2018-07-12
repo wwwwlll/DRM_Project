@@ -12,7 +12,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.wj.drm.DTO.FileListDTO;
 import com.wj.drm.util.CommonUtil;
 import com.wj.drm.util.encrypt.EncryptUtil;
-import com.wj.drm.util.messages.CodeProperties;
 import com.wj.drm.util.messages.ConfigProperties;
 import com.wj.drm.DAO.StudyDAO;
 
@@ -52,8 +51,7 @@ public class FileServiceImpl implements FileService {
 			File encFile = new File(fullPath);
 			EncryptUtil encryptUtil = new EncryptUtil();
 			File orgFile = new File(multipartFile.getOriginalFilename());
-			
-			
+//			multipartFile.transferTo(orgFile);
 			encryptUtil.encryptFile(orgFile, encFile);
 			
 			try {
@@ -68,7 +66,7 @@ public class FileServiceImpl implements FileService {
 				studyDAO.insertFile(fileListDTO);
 				return fullPath;
 			} catch (Exception e2) {
-				LOGGER.error("db?— ?°?´?„°ë¥? ?“±ë¡í•˜?˜ ì¤‘ì— ?˜¤ë¥˜ê? ë°œìƒ?–ˆ?Šµ?‹ˆ?‹¤.",e2);
+				LOGGER.error("dbì— ë°ì´í„°ë¥¼ ì…ë ¥í•˜ë˜ ì¤‘ ì—ëŸ¬ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤.",e2);
 			}
 		} catch (Exception e) {
 			LOGGER.error("encrypt File Fail",e);

@@ -32,15 +32,15 @@ import org.slf4j.LoggerFactory;
 public class CommonUtil {
 	Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 	/**
-	 * 2018. 5. 9. JCONE_WONJAE ?‘?„±.
+	 * 2018. 5. 9. JCONE_WONJAE ê¹€ì›ì¬
 	 *
-	 * path ê²½ë¡œ ?””? ‰?† ë¦? ?ƒ?„±
+	 * ë””ë ‰í† ë¦¬ ìƒì„± 
 	 *
 	 * @param path
 	 *            : ê²½ë¡œ
-	 * @return ?ƒ?„±?‹œ : true ?´ë¯? ?ˆ?„ê²½ìš° false
+	 * @return í´ë”ë¥¼ ìƒì„±í• ê²½ìš° : true / í´ë”ë¥¼ ìƒì„±í•˜ì§€ ëª»í• ê²½ìš° : false
 	 */
-	public boolean makeFolder(String path) {
+	public static boolean makeFolder(String path) {
 		File dir = new File(path);
 		if (!dir.isDirectory()) {
 			return dir.mkdirs();
@@ -49,13 +49,13 @@ public class CommonUtil {
 	}
 
 	/**
-	 * 2018. 5. 9. JCONE_WONJAE ?‘?„±.
+	 * 2018. 5. 9. JCONE_WONJAE ê¹€ì›ì¬
 	 *
-	 * YYYY/MM/DD/ ê²½ë¡œê°? ë¦¬í„´
+	 * YYYY/MM/DD/ ë¡œ ëœ ë¦¬í„´
 	 *
 	 * @return YYYY/MM/DD/
 	 */
-	public String getDatePath_STR() {
+	public static String getDatePath_STR() {
 		String datePath = "";
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY/MM/dd", Locale.KOREA);
@@ -73,23 +73,23 @@ public class CommonUtil {
 
 
 	/**
-	 * 2018. 5. 9. JCONE_WONJAE ?‘?„±.
+	 * 2018. 5. 9. JCONE_WONJAE ê¹€ì›ì¬
 	 *
-	 *	UUID ?ƒ?„±
+	 *	UUID ë¦¬í„´
 	 *
 	 * @return 
 	 * 			UUID
 	 */
-	public String getUuid() {
+	public static String getUuid() {
 		return UUID.randomUUID().toString().replaceAll("-", "");
 	}
 	
-	public void downLoad(HttpServletResponse response,File decryptFile) throws IOException {     
+	public static void downLoad(HttpServletResponse response,File decryptFile) throws IOException {     
 		try {
 			byte fileByte[] = FileUtils.readFileToByteArray(decryptFile);
 			response.setContentType("application/octet-stream");
 			response.setContentLength(fileByte.length);
-			response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode("?ŒŒ?¼_?‹¤?š´ë¡œë“œ_?…Œ?Š¤?Š¸","UTF-8")+"\";");
+			response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode("?ï¿½ï¿½?ï¿½ï¿½_?ï¿½ï¿½?ï¿½ï¿½ë¡œë“œ_?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½","UTF-8")+"\";");
 			response.setHeader("Content-Transfer-Encoding", "binary");
 			response.getOutputStream().write(fileByte);    
 			response.getOutputStream().flush();
@@ -99,76 +99,100 @@ public class CommonUtil {
 		}
 	}
 	
-	public boolean delDir(String path) {		
+	public static boolean delDir(String path) {		
 		File file = new File(path);
-	        if(file.exists()){ //?ŒŒ?¼ì¡´ì¬?—¬ë¶??™•?¸
-	            if(file.isDirectory()){ //?ŒŒ?¼?´ ?””? ‰?† ë¦¬ì¸ì§? ?™•?¸
+	        if(file.exists()){ 
+	            if(file.isDirectory()){ 
 	                File[] files = file.listFiles();
 	                for(int i=0; i<files.length; i++){
 	                    if(files[i].delete()){
-	                        System.out.println(files[i].getName()+" ?‚­? œ?„±ê³?");
+	                        System.out.println(files[i].getName()+" ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ï¿½?");
 	                    }else{
-	                        System.out.println(files[i].getName()+" ?‚­? œ?‹¤?Œ¨");
+	                        System.out.println(files[i].getName()+" ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½");
 	                    }
 	                }
 	            }
 	            if(file.delete()){
-	                System.out.println("?ŒŒ?¼?‚­? œ ?„±ê³?");
+	                System.out.println("?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ ?ï¿½ï¿½ï¿½?");
 	            }else{
-	                System.out.println("?ŒŒ?¼?‚­? œ ?‹¤?Œ¨");
+	                System.out.println("?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ ?ï¿½ï¿½?ï¿½ï¿½");
 	            }
 	        }else{
-	            System.out.println("?ŒŒ?¼?´ ì¡´ì¬?•˜ì§? ?•Š?Šµ?‹ˆ?‹¤.");
+	            System.out.println("?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ ì¡´ì¬?ï¿½ï¿½ï¿½? ?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½.");
 	        }
 		return false;
 	}
 		
-	public boolean sendMail() throws AddressException,UnsupportedEncodingException,MessagingException{
+	/**
+	 * 2018. 6. 14. JCONE_WONJAE ì‘ì„±.
+	 *
+	 * @param userId
+	 * 					: ë°›ëŠ” ì‚¬ëŒ ì•„ì´ë””(ë©”ì¼ì£¼ì†Œ)
+	 * @param ccAddress
+	 * 					: ì°¸ì¡° ë©”ì¼ ì•„ì´ë””(cc1,cc2,cc3 ìœ¼ë¡œ ë‚˜ì—´)
+	 * @param content
+	 * 					: ë©”ì¼ ë‚´ìš©
+	 * @param fileFullPath
+	 * 					: ì²¨ë¶€íŒŒì¼ fullPath
+	 * @return
+	 * @throws AddressException
+	 * @throws UnsupportedEncodingException
+	 * @throws MessagingException
+	 */
+	public static boolean sendMail(String userId ,String ccAddress,String content,String fileFullPath) throws AddressException,UnsupportedEncodingException,MessagingException{
 		String host = "smtp.naver.com";
 	    Properties prop = System.getProperties();
 	    Session session = Session.getDefaultInstance(prop,null);
 	    MimeMessage message = new MimeMessage(session);
-	    String toName = "±è¿øÀç";
-	    String title = "±è¿øÀç ¸ŞÀÏ Å×½ºÆ®ÀÔ´Ï´Ù.";
-	    StringBuilder content = new StringBuilder() ;
-	    content.append("µ¿ÇØ¹°°ú ¹éµÎ»êÀÌ ¸¶¸£°í´âµµ·Ï ÇÏ´À´ÔÀÌ º¸¿ìÇÏ»ç ¿ì¸® ³ª¶ó ¸¸¼¼!");
-	    String toAddress ="funnywonjae@naver.com";
+	    String toName = "ê¹€ì›ì¬ ë¯¸ë‹ˆ í”„ë¡œì íŠ¸";
+	    String title = "ì¸ì¦ì½”ë“œì…ë‹ˆë‹¤.";
+	    String toAddress =userId;
 	    String fromAddress = "funnywonjae@naver.com";
-	    String ccAddress = "funnywonjae@naver.com,funnywonjae@naver.com,funnywonjae@naver.com,funnywonjae@naver.com";
-	    String filePath = "D:\\testText.txt";
+	    boolean b_file = false;
+	    boolean b_ccAddress = false;
+	    if(fileFullPath != null) {
+	    	b_file = true;
+	    }
+	    if(ccAddress != null) {
+	    	b_ccAddress = true;
+	    }
 	    InternetAddress[] address = {new InternetAddress(fromAddress)};
-	    String[] ccAddress_split = ccAddress.split(",");
-	    InternetAddress[] addresscc = new InternetAddress[ccAddress_split.length];
-	    for(int i = 0 ; i < ccAddress_split.length ; i++) {
-	    	addresscc[i] = new InternetAddress(ccAddress_split[i]);
+	    String[] ccAddress_split = null;
+	    InternetAddress[] addresscc = null;
+	    if(b_ccAddress) {
+	    	ccAddress_split = ccAddress.split(",");
+	    	addresscc = new InternetAddress[ccAddress_split.length];
+	    	for(int i = 0 ; i < ccAddress_split.length ; i++) {
+	    		addresscc[i] = new InternetAddress(ccAddress_split[i]);
+	    	}
 	    }
 	    message.setFrom(new InternetAddress(new String(toName.getBytes("KSC5601"),"8859_1")+"<"+toAddress+">"));
 	    message.setRecipients(Message.RecipientType.TO, address);
-	    message.setRecipients(Message.RecipientType.CC, addresscc);
+	    if(b_ccAddress) message.setRecipients(Message.RecipientType.CC, addresscc);
 	    message.setSubject(title,"KSC5601");
 	    MimeBodyPart mbp1 = new MimeBodyPart();
 	    mbp1.setText(content.toString().replaceAll(" "," "), "KSC5601");
-	    String file = filePath;
-	    file = fileSize(file);
-	    MimeBodyPart mdp2 = new MimeBodyPart();
-	    FileDataSource fds = new FileDataSource(file);
-	    mdp2.setDataHandler(new DataHandler(fds));
-	    mdp2.setFileName(MimeUtility.encodeText(fds.getName(),"KSC5601","B"));
-	    Multipart mp = new MimeMultipart();
-	    mp.addBodyPart(mbp1);
-	    if(!file.equals("")) {
-	        mp.addBodyPart(mdp2);
+    	FileDataSource fds = null;
+    	MimeBodyPart mdp2 = new MimeBodyPart();
+    	Multipart mp = new MimeMultipart();
+    	mp.addBodyPart(mbp1);
+	    if(b_file) {
+	    	fds = new FileDataSource(fileFullPath);
+	    	fileFullPath = fileSize(fileFullPath);
+	    	if(fileFullPath != "") {
+	    		mdp2.setDataHandler(new DataHandler(fds));
+		    	mdp2.setFileName(MimeUtility.encodeText(fds.getName(),"KSC5601","B"));
+	        	mp.addBodyPart(mdp2);
+	    	}
 	    }
-	    message.setContent(mp);
+    	message.setContent(mp);
 	    Transport transport = session.getTransport("smtp");
-	            //smtp ÁÖ¼Ò·Î ¼³Á¤ÇÑ ¸ŞÀÏÀÇ ¸ŞÀÏÁÖ¼Ò(¾ÆÀÌµğ)/ÆĞ½º¿öµå
 	    transport.connect(host,"funnywonjae","dnjswo3675!");
 	    transport.sendMessage(message,message.getAllRecipients());
 	    transport.close();
-	    System.out.println("¸ŞÀÏÀü¼Û ¼º°ø!");
+	    System.out.println("ë©”ì¼ ì „ì†¡ ì™„ë£Œ.");
 		return true;
 	}
-	 
 	private static String fileSize(String fileName) {
 	    File file = new File(fileName);
 	    if(file.length()>(1024*1024*2.5)) {
